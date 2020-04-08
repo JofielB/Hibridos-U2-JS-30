@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Flex Panels 💪</title>
+  <link href='https://fonts.googleapis.com/css?family=Amatic+SC' rel='stylesheet' type='text/css'>
+</head>
+<body>
+  <style>
+    html {
+      box-sizing: border-box;
+      background:#ffc600;
+      font-family:'helvetica neue';
+      font-size: 20px;
+      font-weight: 200;
+    }
+    body {
+      margin: 0;
+    }
+    *, *:before, *:after {
+      box-sizing: inherit;
+    }
+
+    .panels {
+      min-height:100vh;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .panel {
+      background:#6B0F9C;
+      box-shadow:inset 0 0 0 5px rgba(255,255,255,0.1);
+      color:white;
+      text-align: center;
+      align-items:center;
+      /* Safari transitionend event.propertyName === flex */
+      /* Chrome + FF transitionend event.propertyName === flex-grow */
+      transition:
+        font-size 0.7s cubic-bezier(0.61,-0.19, 0.7,-0.11),
+        flex 0.7s cubic-bezier(0.61,-0.19, 0.7,-0.11),
+        background 0.2s;
+      font-size: 20px;
+      background-size:cover;
+      background-position:center;
+      flex: 1; /* Espacio extra */
+      flex-direction: column;
+      display:  flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+
+    .panel1 { background-image:url(https://www.laespanolaaceites.com/wp-content/uploads/2019/06/pizza-con-chorizo-jamon-y-queso-1080x671.jpg); }
+    .panel2 { background-image:url(https://imgsnotigram.s3.amazonaws.com/uploads/2020/04/291ac5f9051633ee41a076e53b3b5c65-1024x683.jpg); }
+    .panel3 { background-image:url(https://cdn-3.expansion.mx/dims4/default/674359d/2147483647/strip/true/crop/800x450+0+0/resize/1200x675!/quality/90/?url=https%3A%2F%2Fcdn-3.expansion.mx%2Fcd%2Ffb%2F2ebccce94726adb40a855ffffe5a%2Ftacos-tripa-1.jpg); }
+    .panel4 { background-image:url(https://modoeficaz.com/wp-content/uploads/2014/09/Aprende-a-sujetar-una-hamburguesa-de-manera-eficaz.jpg); }
+    .panel5 { background-image:url(https://www.maangchi.com/wp-content/uploads/2019/01/koreanfriedchicken.jpg); }
+
+    .panel > * {
+      margin:0;
+      width: 100%;
+      transition:transform 0.5s;
+      flex: 1 0 auto;
+      display:  flex;
+      align-items: center;
+      justify-content: center;
+  
+    }
+
+    .panel > *:first-child { transform: translateY(-100%);}
+    .panel.open-active > *:first-child { transform: translateY(0);}
+    .panel > *:last-child { transform: translateY(100%);}
+    .panel.open-active > *:last-child { transform: translateY(0);}
+
+    .panel p {
+      text-transform: uppercase;
+      font-family: 'Amatic SC', cursive;
+      text-shadow:0 0 4px rgba(0, 0, 0, 0.72), 0 0 14px rgba(0, 0, 0, 0.45);
+      font-size: 2em;
+    }
+    .panel p:nth-child(2) {
+      font-size: 4em;
+    }
+
+    .panel.open {
+      flex: 5;
+      font-size:40px;
+    }
+
+  </style>
+
+
+  <div class="panels">
+    <div class="panel panel1">
+      <p>The</p>
+      <p>Peperoni </p>
+      <p>Pizza</p>
+    </div>
+    <div class="panel panel2">
+      <p>The</p>
+      <p>BBQ</p>
+      <p>Boneless</p>
+    </div>
+    <div class="panel panel3">
+      <p>The</p>
+      <p>Taco</p>
+      <p>of Tripita</p>
+    </div>
+    <div class="panel panel4">
+      <p>The</p>
+      <p>Monster </p>
+      <p>Hamburger</p>
+    </div>
+    <div class="panel panel5">
+      <p>The</p>
+      <p>Fried</p>
+      <p>Chicken</p>
+    </div>
+  </div>
+
+  <script>
+
+    const panels = document.querySelectorAll('.panel');
+
+    function toggleOpen() {
+      console.log('Hello');
+      this.classList.toggle('open');
+    }
+
+    function toggleActive(e) {  //Meustra la trancion flex
+      console.log(e.propertyName);
+      if (e.propertyName.includes('flex')) {
+        this.classList.toggle('open-active');
+      }
+    }
+
+    panels.forEach(panel => panel.addEventListener('click', toggleOpen)); //Abre el cuadro  cuando es clickeado
+    panels.forEach(panel => panel.addEventListener('transitionend', toggleActive)); //Animacion del texto
+
+  </script>
+
+
+
+</body>
+</html>
